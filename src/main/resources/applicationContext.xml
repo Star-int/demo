@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--    使用构造方法实例化bean-->
+    <bean id="bookDao" name="bookDao2" class="com.itheima.dao.Impl.BookDaoImpl" init-method="init" destroy-method="Destory"/>
+<!--    name=“"可以实现Bean别名-->
+<!--    scope=""作用范围，默认是单例的，scope="singleton",非单例prototype-->
+    <bean id="bookService" class="com.itheima.service.Impl.BookServiceImpl" >
+<!--        property标签表示配置当前bean的属性-->
+<!--        name属性表示配置哪一个具体属性-->
+<!--        ref属性表示参照哪一个bean-->
+        <property name="bookDao" ref="bookDao"/><!--DI依赖注入 -->
+    </bean>
+
+<!--    使用静态工厂实例化bean-->
+    <bean id="orderDao" class="com.itheima.factory.OrderDaoFactory" factory-method="getOrderDao"/>
+
+<!--    使用实例工厂实例化bean-->
+<!--    <bean id="userFactory" class="com.itheima.factory.UserDaoFactory"/>-->
+<!--    <bean id="userDao" factory-method="getUserDao" factory-bean="userFactory"/>-->
+
+<!--    方法四、用FactoryBean实例化Bean-->
+    <bean id="userDao" class="com.itheima.factory.UserFactoryBean"/>
+</beans>
